@@ -16,3 +16,14 @@ def index(request, month):
         challenge = 'This month is not supported'
     return HttpResponse(challenge)
 
+def month_id(request, month):
+    challenge = ''
+    if month == 1:
+        challenge = 'Its January, Eat no meat for 30 days'
+    elif month == 2:
+        challenge = 'Its February, walk for 30 mins evry day'
+    elif month == 3:
+        challenge = 'Its March, Practice Django for 30 mins everyday'
+    else:
+        challenge = 'This month is not supported'
+    return HttpResponse(challenge)
