@@ -23,9 +23,10 @@ monthly_challenge = {
 def index(request, month):
     try:
         challenge = monthly_challenge[month]
-        return HttpResponse(challenge)
+        challengeText = "<h1>{}</h1>".format(challenge)
+        return HttpResponse(challengeText)
     except:
-        return HttpResponseNotFound("Entered month {} is not supported".format(month))
+        return HttpResponseNotFound("<h1>Entered month {} is not supported</h1>".format(month))
     
 
 def month_id(request, monthid):
@@ -34,4 +35,12 @@ def month_id(request, monthid):
         redirect_path = reverse('month-challenge', args=[month])
         return HttpResponseRedirect(redirect_path)
     except:
-        return HttpResponseNotFound("challenges/"+str(monthid)+" is not supported")
+        return HttpResponseNotFound("<h1>challenges/{} is not supported</h1>".format(monthid))
+
+def menu(request):
+    menuItems = '<ul>'
+    for month in list(monthly_challenge.keys()):
+        monthPath = reverse('month-challenge', args=[month])
+        menuItems += '<li> <a href = "{monthPath}"> {month}</a> </li>'.format(monthPath = monthPath, month = month)
+    menuItems += '</ul>'
+    return HttpResponse(menuItems)
