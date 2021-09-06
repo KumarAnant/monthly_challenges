@@ -2,6 +2,7 @@ from django.http.response import HttpResponse, HttpResponseNotFound, HttpRespons
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 # Create your views here.
 monthly_challenge = {
@@ -24,6 +25,7 @@ def index(request, month):
     try:
         challenge = monthly_challenge[month]
         challengeText = "<h1>{}</h1>".format(challenge)
+        challengeText = render_to_string("challenges/challenge.html")
         return HttpResponse(challengeText)
     except:
         return HttpResponseNotFound("<h1>Entered month {} is not supported</h1>".format(month))
