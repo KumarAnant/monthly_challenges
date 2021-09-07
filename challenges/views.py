@@ -17,7 +17,7 @@ monthly_challenge = {
     'september' : 'Its September. Practice Django for 30 mins everyday',
     'october'   :  'Its October. Eat no meat in the month',
     'november'  : 'Its November, Walk for 30 minutes everyday',
-    'december'  : 'Its December. Practice Django for 30 mins everyday',
+    'december'  : None,
 }
 
 
@@ -27,7 +27,7 @@ def index(request, month):
         challengeText = "<h1>{}</h1>".format(challenge)
         return render(request, 'challenges/challenge.html', {
             'text': monthly_challenge[month],
-            'month': month.capitalize(),
+            'month': month,
         })
         # challengeText = render_to_string("challenges/challenge.html")
         # return HttpResponse(challengeText)
@@ -44,9 +44,14 @@ def month_id(request, monthid):
         return HttpResponseNotFound("<h1>challenges/{} is not supported</h1>".format(monthid))
 
 def menu(request):
-    menuItems = '<ul>'
-    for month in list(monthly_challenge.keys()):
-        monthPath = reverse('month-challenge', args=[month])
-        menuItems += '<li> <a href = "{monthPath}"> {month}</a> </li>'.format(monthPath = monthPath, month = month)
-    menuItems += '</ul>'
-    return HttpResponse(menuItems)
+    # menuItems = '<ul>'
+    # for month in list(monthly_challenge.keys()):
+    #     monthPath = reverse('month-challenge', args=[month])
+    #     menuItems += '<li> <a href = "{monthPath}"> {month}</a> </li>'.format(monthPath = monthPath, month = month)
+    # menuItems += '</ul>'
+    # return HttpResponse(menuItems)
+    months = list(monthly_challenge.keys())
+    return render(request, 'challenges/menu.html', {
+            'months': months,
+            
+        })
